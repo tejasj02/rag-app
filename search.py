@@ -2,8 +2,7 @@ import numpy as np
 from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
 from huggingface_hub import InferenceClient
-from dotenv import load_dotenv
-import os
+import streamlit as st
 
 def query_pinecone(index, query_vector, top_k=1000):
     response = index.query(
@@ -70,10 +69,9 @@ def query_mistral_hub(prompt, prompt_context, api_token):
     return response_text, response_text_context
 
 if __name__ == "__main__":
-    load_dotenv()
-    pc_key = os.getenv('PC_KEY')
-    hf_key = os.getenv('HF_KEY')
-    pc_ind = os.getenv('PC_IND')
+    pc_key = st.secrets["PC_KEY"]
+    hf_key = st.secrets['HF_KEY']
+    pc_ind = st.secrets['PC_IND']
     pc = Pinecone(api_key=pc_key)
     index = pc.Index(pc_ind)
     query = "Are atheists morally insane?"

@@ -1,14 +1,12 @@
 import streamlit as st
 from search import rag_with_mistral
 from pinecone import Pinecone
-from dotenv import load_dotenv
-import os
+
 # streamlit app layout
 def app():
-    load_dotenv()
-    pc_key = os.getenv('PC_KEY')
-    hf_key = os.getenv('HF_KEY')
-    pc_ind = os.getenv('PC_IND')
+    pc_key = st.secrets["PC_KEY"]
+    hf_key = st.secrets['HF_KEY']
+    pc_ind = st.secrets['PC_IND']
 
     pc = Pinecone(api_key=pc_key)
     index = pc.Index(pc_ind)
